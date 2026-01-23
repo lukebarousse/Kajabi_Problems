@@ -1,0 +1,28 @@
+<h2 style="display: inline !important;">Solution</h2>
+<ol>
+<li>Connect to the shared <code>data_jobs</code> DuckDB database from your terminal
+<pre><code class="language-bash">duckdb md:data_jobs</code></pre>
+</li>
+<li>Run a query to retrieve job IDs and provide a default value for missing schedule types using the <code>COALESCE</code> function.
+<pre><code class="language-sql">SELECT 
+    job_id,
+    COALESCE(job_schedule_type, 'Not Specified') AS schedule_info
+FROM 
+    job_postings_fact;</code></pre>
+</li>
+</ol>
+<h2>Expected Outcome</h2>
+<h2>Explanation</h2>
+<ul>
+<li><b>Connect to data_jobs:</b> <code>duckdb md:data_jobs</code> opens a DuckDB session pointing at the shared <code>data_jobs</code> database so all queries run against that dataset.</li>
+<li><b>Identify Data Source:</b> The <code>FROM</code> clause specifies the <code>job_postings_fact</code> table, which contains the primary records for job listings.</li>
+<li><b>Handle Null Values:</b> The <code>COALESCE</code> function is utilized to provide a fallback value for the <code>job_schedule_type</code> column.
+<p class="p1">In data engineering, handling <code>NULL</code> values is critical for clean reporting. The <code>COALESCE</code> function checks the <code>job_schedule_type</code>; if the value is <code>NULL</code>, it returns the string <code>'Not Specified'</code>. If the value is not null, it returns the original value.</p>
+</li>
+<li><b>Column Selection and Aliasing:</b> The <code>SELECT</code> statement defines which data to display in the final result set.
+<ul>
+<li><code>job_id</code>: Included to uniquely identify each job posting record.</li>
+<li><code>AS schedule_info</code>: This renames the output of the <code>COALESCE</code> function to <code>schedule_info</code>, making the resulting dataset more readable and descriptive for end-users.</li>
+</ul>
+</li>
+</ul>

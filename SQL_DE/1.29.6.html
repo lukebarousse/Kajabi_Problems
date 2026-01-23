@@ -1,0 +1,17 @@
+<h2 style="display: inline !important;">Solution</h2> <ol> <li>Connect to the shared <code>data_jobs</code> DuckDB database from your terminal <pre><code class="language-bash">duckdb md:data_jobs</code></pre> </li> <li>Run a query to select the <code>job_id</code> and provide a default value of 'Remote' for missing <code>job_location</code> entries using the <code>COALESCE</code> function. <pre><code class="language-sql">SELECT 
+    job_id,
+    COALESCE(TRIM(job_location), 'Remote') AS location_clean
+FROM 
+    job_postings_fact
+WHERE 
+	  TRIM(job_location) IS NULL;</code></pre> </li> </ol>
+<h2>Expected Outcome</h2>
+<h2>Explanation</h2> <ul> <li><b>Connect to data_jobs:</b> <code>duckdb md:data_jobs</code> opens a DuckDB session pointing at the shared <code>data_jobs</code> database so all queries run against that dataset.</li> <li><b>Handling Missing Values:</b> The query uses the <code>COALESCE</code> function to manage <code>NULL</code> entries in the dataset while ensuring data consistency. <ul> <li><p class="p1">The <code>TRIM()</code> function is applied to the <code>job_location</code> column to remove any leading or trailing whitespace that might exist in the raw data.</p></li> <li><p class="p1">The <code>COALESCE()</code> function evaluates the trimmed location. If the result is <code>NULL</code>, it returns the specified fallback value, <code>'Remote'</code>, which is then aliased as <code>location_clean</code>.</p></li> </ul>
+
+</li>
+<li><b>Filtering Criteria:</b> The <code>WHERE</code> clause is used to narrow down the records from the <code>job_postings_fact</code> table.
+    <ul>
+        <li><p class="p1">By filtering with <code>WHERE TRIM(job_location) IS NULL</code>, the query specifically targets rows where the location information is missing, allowing us to observe how the <code>COALESCE</code> function replaces those <code>NULL</code> values in the final output.</p></li>
+    </ul>
+</li>
+</ul>

@@ -1,0 +1,35 @@
+<h2 style="display: inline !important;">Solution</h2>
+<ol>
+<li>Connect to the shared <code>data_jobs</code> DuckDB database from your terminal
+<pre><code class="language-bash">duckdb md:data_jobs</code></pre>
+</li>
+<li>Run a query to calculate a consolidated <code>final_salary</code> by prioritizing yearly averages, then hourly rates scaled to an annual value, while providing a default backup value.
+<pre><code class="language-sql">SELECT 
+    job_id,
+    COALESCE(
+        NULLIF(salary_year_avg, 0), 
+        NULLIF(salary_hour_avg, 0) * 2080, 
+        50000
+    ) AS final_salary
+FROM 
+    job_postings_fact;</code></pre>
+</li>
+</ol>
+<h2>Expected Outcome</h2>
+<h2>Explanation</h2>
+<ul>
+<li><b>Connect to data_jobs:</b> <code>duckdb md:data_jobs</code> opens a DuckDB session pointing at the shared <code>data_jobs</code> database so all queries run against that dataset.</li>
+<li><b>Handling Zeros with NULLIF:</b>
+<p class="p1">The <code>NULLIF</code> function is applied to both <code>salary_year_avg</code> and <code>salary_hour_avg</code>. This converts any <code>0</code> values in the dataset into <b>NULL</b>. This step is essential because <code>COALESCE</code> skips <b>NULL</b> values but would treat a <code>0</code> as a valid entry, which would lead to incorrect salary reporting.</p>
+</li>
+<li><b>Normalizing Salary Calculations:</b>
+<ul>
+<li>The query first attempts to use the existing <code>salary_year_avg</code>.</li>
+<li>If that is missing, it takes the <code>salary_hour_avg</code> and multiplies it by <code>2080</code> (representing standard full-time annual hours) to estimate a yearly salary.</li>
+<li>If both values are missing, it defaults to a standard value of <code>50000</code>.</li>
+</ul>
+</li>
+<li><b>Consolidating Data with COALESCE:</b>
+<p class="p1">The <code>COALESCE</code> function acts as a priority list, returning the first non-null result from its arguments. This allows us to create a single, clean <code>final_salary</code> column from multiple potential data sources.</p>
+</li>
+</ul>
