@@ -53,10 +53,12 @@ https://lukebarousse.github.io/Kajabi_Problems/SQL_DE/1.13.4.html
 In your Kajabi lesson, add a **Custom HTML** block and paste this script:
 
 ```html
-<div id="lesson-container"></div>
+<div id="lesson-container">
+  <p style="padding: 40px; text-align: center; background: #f0f0f0; border: 2px dashed #ccc; color: #666; font-family: monospace; margin: 0;">📝 EDIT CONTENT IN KAJABI_PROBLEMS REPO<br />To edit this lesson content, update the HTML file in the Kajabi_Problems repository<br /></p>
+</div>
 
 <script>
-  fetch('https://lukebarousse.github.io/Kajabi_Problems/SQL_DE/1.13.4.html')
+  fetch('https://lukebarousse.github.io/Kajabi_Problems/<course-folder>/<filename>.html')
     .then(response => response.text())
     .then(html => {
       document.getElementById('lesson-container').innerHTML = html;
@@ -65,19 +67,18 @@ In your Kajabi lesson, add a **Custom HTML** block and paste this script:
 </script>
 ```
 
-### Customize the Script
-
-Replace these values in the script above:
-
-1. **`SQL_DE`** → Your course folder name (if different)
-2. **`1.13.4.html`** → Your actual HTML filename (using your numbering system)
+**Customize the script:**
+- Replace `<course-folder>` with your course folder (e.g., `SQL_DE`)
+- Replace `<filename>` with your HTML filename (e.g., `1.13.4.html`, `2.5.1.html`)
 
 ### Example
 
 For a file named `2.5.1.html` in the `SQL_DE` folder:
 
 ```html
-<div id="lesson-container"></div>
+<div id="lesson-container">
+  <p style="padding: 40px; text-align: center; background: #f0f0f0; border: 2px dashed #ccc; color: #666; font-family: monospace; margin: 0;">📝 EDIT CONTENT IN KAJABI_PROBLEMS REPO<br />To edit this lesson content, update the HTML file in the Kajabi_Problems repository<br /></p>
+</div>
 
 <script>
   fetch('https://lukebarousse.github.io/Kajabi_Problems/SQL_DE/2.5.1.html')
@@ -120,16 +121,6 @@ You can add additional course folders as needed (e.g., `Python_Basics/`, `Data_A
 
 ---
 
-## Initial Setup (Already Completed)
-
-The following steps have already been completed:
-
-- ✅ Created private GitHub repository
-- ✅ Cloned repository to local machine
-- ✅ Enabled GitHub Pages (Settings → Pages → Deploy from branch `main`)
-
----
-
 ## Troubleshooting
 
 - **Page not loading?** Wait a few minutes after pushing—GitHub Pages can take 1-2 minutes to update.
@@ -141,25 +132,3 @@ The following steps have already been completed:
   3. GitHub Pages deployment is successful (check Settings → Pages)
 
 ---
-
-## Quick Reference
-
-**File URL Pattern:**
-```
-https://lukebarousse.github.io/Kajabi_Problems/SQL_DE/FILENAME.html
-```
-
-**Kajabi Script Template:**
-```html
-<div id="lesson-container"></div>
-<script>
-  fetch('https://lukebarousse.github.io/Kajabi_Problems/SQL_DE/FILENAME.html')
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById('lesson-container').innerHTML = html;
-    })
-    .catch(error => console.error('Error loading lesson:', error));
-</script>
-```
-
-Replace `FILENAME.html` with your actual file (e.g., `1.13.4.html`, `2.5.1.html`).
