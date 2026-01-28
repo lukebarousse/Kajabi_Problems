@@ -1,0 +1,35 @@
+<h2 style="display: inline !important;">Solution</h2>
+<ol>
+<li>Connect to the shared <code>data_jobs</code> DuckDB database from your terminal
+<pre><code class="language-bash">duckdb md:data_jobs</code></pre>
+</li>
+<li>Create the <code>staging.priority_skills</code> table.
+<pre><code class="language-sql">CREATE TABLE staging.priority_skills (
+  skill_id INT PRIMARY KEY,
+  skill_name VARCHAR(50),
+  priority_lvl INT
+);</code></pre>
+</li>
+<li>Insert records for Python, SQL, and Tableau with their respective priority levels.
+<pre><code class="language-sql">INSERT INTO staging.priority_skills (skill_id, skill_name, priority_lvl)
+VALUES 
+  (1, 'python', 1),
+  (0, 'sql', 1),
+  (183, 'tableau', 2);</code></pre>
+</li>
+</ol>
+<h2>Explanation</h2>
+<ul>
+<li><b>Connect to data_jobs:</b> <code>duckdb md:data_jobs</code> opens a DuckDB session pointing at the shared <code>data_jobs</code> database.</li>
+<li><b>Table Definition:</b> The <code>CREATE TABLE</code> statement defines the structure of <code>staging.priority_skills</code>.
+<p class="p1">Defining a schema ensures data types are consistent across the pipeline.</p>
+<ul>
+<li>The <code>skill_id</code> is the <b>PRIMARY KEY</b>, ensuring every row has a unique identifier.</li>
+<li>The <code>skill_name</code> uses <code>VARCHAR(50)</code> for text storage.</li>
+<li>The <code>priority_lvl</code> uses <code>INT</code> for numeric ranking.</li>
+</ul>
+</li>
+<li><b>Data Population:</b> The <code>INSERT INTO</code> statement adds the actual records.
+<p class="p1">By listing the columns explicitly, we ensure the data maps correctly even if the table is altered later.</p>
+</li>
+</ul>
