@@ -102,3 +102,5 @@ CREATE INDEX idx_job_id ON public.skills_job_dim (job_id);</code></pre>
 <li>Repeat steps to create database and load table schemas</li>
 <li>Follow steps above for copying CSV files into the sql_course database</li>
 </ul>
+<h2>Mac Users (Permission Denied)</h2>
+<p>If you're on a Mac and still getting the permission error after following the steps above, macOS blocks PostgreSQL from accessing Desktop, Documents, and Downloads folders. Move your csv_files folder to <code>/Users/Shared/</code> and use that as your file path when copying the CSVs.</p>
