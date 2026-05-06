@@ -1,10 +1,20 @@
 # GitHub Pages Setup for Kajabi Content
 
-This repository hosts HTML lesson content that can be embedded into Kajabi courses. This workaround is necessary because Kajabi blocks certain keywords (like `COALESCE` in SQL) when pasted directly into lesson content.
+## Disclaimer
+
+> **Resolved.** The Kajabi limitation this repository was built around—blocked keywords in lesson content (for example `COALESCE` in SQL)—has been fixed upstream. That status is reflected in Kajabi’s public feedback: [SQL lessons no longer save when valid queries are included in lesson body](https://feedback.kajabi.com/bug-reports/p/sql-lessons-no-longer-save-when-valid-queries-are-included-in-lesson-body).
+>
+> **Verified.** All course pages have been checked. No Kajabi lessons still load content from this GitHub Pages site (`https://lukebarousse.github.io/Kajabi_Problems/`) to populate lesson HTML.
+>
+> The instructions below describe the old GitHub Pages + `fetch()` workflow for historical reference only. They are not the recommended way to author new lessons unless you have another reason to host HTML in this repo.
+
+---
+
+This repository historically hosted HTML lesson content that was embedded into Kajabi courses via JavaScript. That approach existed because Kajabi used to block certain keywords when pasted directly into lesson content.
 
 ## Overview
 
-By hosting your HTML content on GitHub Pages and embedding it via JavaScript, you can bypass Kajabi's content restrictions and maintain full control over your lesson materials. This setup supports multiple courses, with each course having its own folder (e.g., `SQL_DE/` for SQL Data Engineering).
+Previously, hosting HTML on GitHub Pages and embedding it via JavaScript bypassed those restrictions. This setup supported multiple courses, with each course having its own folder (e.g., `SQL_DE/` for SQL Data Engineering).
 
 ---
 
